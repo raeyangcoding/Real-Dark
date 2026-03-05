@@ -1,4 +1,4 @@
-# RealDark
+# Real Dark
 
 Even in built-in pages.
 
