@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "RealDark",
+  "version": "1.0",
+  "description": "Firefox浏览器的真深色模式，按定时/日出日落自动切换深色模式",
+  "permissions": ["storage", "geolocation", "alarms", "browserSettings"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "realdark@example.com"
+    }
+  }
+}

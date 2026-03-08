@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Dark Settings</title>
+  
+  <!-- 【国内镜像】Tailwind CSS -->
+  <script src="https://fastly.jsdelivr.net/npm/tailwindcss-cdn@3.4.3/tailwindcss.js"></script>
+  <!-- 【国内镜像】Inter 字体 -->
+  <link href="https://fonts.loli.net/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      width: 320px;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      margin: 0;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    body::-webkit-scrollbar { display: none; }
+    
+    input[type="time"]::-webkit-calendar-picker-indicator {
+      cursor: pointer; opacity: 0.6; transition: 0.2s;
+    }
+    input[type="time"]::-webkit-calendar-picker-indicator:hover {
+      opacity: 1;
+    }
+
+    /* 平滑面板动画 */
+    .fade-enter {
+      animation: fadeInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Logo 日全食动画特效 */
+    .eclipse-sun { transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .eclipse-moon { transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .group:hover .eclipse-moon { transform: translateX(0); }
+    .group:hover .eclipse-sun {
+      box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.3);
+      background-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-5 select-none">
+
+  <!-- Header & 创意 Logo -->
+  <header class="flex items-center gap-3.5 mb-6">
+    <div class="flex items-center justify-center w-10 h-10 bg-slate-900 rounded-xl shadow-[0_2px_10px_-3px_rgba(0,0,0,0.3)] relative overflow-hidden group cursor-default">
+      <div class="eclipse-sun absolute w-4 h-4 bg-white rounded-full ml-1"></div>
+      <div class="eclipse-moon absolute w-[18px] h-[18px] bg-slate-900 rounded-full translate-x-[-8px]"></div>
+    </div>
+    <div>
+      <h1 class="font-semibold text-base leading-tight text-slate-900 tracking-tight">Real Dark</h1>
+      <p class="text-[11px] text-slate-500 font-medium tracking-wide mt-0.5">告别白屏闪烁</p>
+    </div>
+  </header>
+
+  <!-- 模式选择 -->
+  <div class="space-y-3 mb-5">
+    <label class="relative flex cursor-pointer rounded-xl border border-slate-200 bg-white p-3.5 shadow-sm hover:border-slate-300 hover:shadow-md transition-all group">
+      <input type="radio" name="mode" value="time" class="peer sr-only" checked>
+      <div class="flex items-center gap-3 w-full">
+        <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 text-slate-500 peer-checked:bg-orange-100 peer-checked:text-orange-600 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="flex-1">
+          <span class="block font-medium text-sm text-slate-900">固定时间</span>
+          <span class="block text-[11px] text-slate-500 mt-0.5">按设定的小时切换</span>
+        </div>
+        <div class="w-4 h-4 rounded-full border-2 border-slate-300 peer-checked:border-[5px] peer-checked:border-orange-500 transition-all"></div>
+      </div>
+      <div class="absolute inset-0 rounded-xl border-2 border-transparent peer-checked:border-orange-500/20 pointer-events-none transition-all"></div>
+    </label>
+
+    <label class="relative flex cursor-pointer rounded-xl border border-slate-200 bg-white p-3.5 shadow-sm hover:border-slate-300 hover:shadow-md transition-all group">
+      <input type="radio" name="mode" value="sun" class="peer sr-only">
+      <div class="flex items-center gap-3 w-full">
+        <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 text-slate-500 peer-checked:bg-orange-100 peer-checked:text-orange-600 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 10V2"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h20"/><path d="M20 22H4"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22h-20"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg>
+        </div>
+        <div class="flex-1">
+          <span class="block font-medium text-sm text-slate-900">日出日落</span>
+          <span class="block text-[11px] text-slate-500 mt-0.5">根据地理位置自动计算</span>
+        </div>
+        <div class="w-4 h-4 rounded-full border-2 border-slate-300 peer-checked:border-[5px] peer-checked:border-orange-500 transition-all"></div>
+      </div>
+      <div class="absolute inset-0 rounded-xl border-2 border-transparent peer-checked:border-orange-500/20 pointer-events-none transition-all"></div>
+    </label>
+  </div>
+
+  <!-- 动态设置面板区域 -->
+  <div class="mb-5 relative min-h-[90px]">
+    <!-- 固定时间面板 -->
+    <div id="panel-time" class="w-full fade-enter block">
+      <div class="flex gap-3">
+        <div class="flex-1 space-y-1.5">
+          <label class="text-[11px] font-semibold tracking-wide text-slate-500 uppercase flex items-center gap-1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-slate-400"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            白天
+          </label>
+          <input type="time" id="lightTime" value="07:00" class="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition-all shadow-sm">
+        </div>
+        <div class="flex-1 space-y-1.5">
+          <label class="text-[11px] font-semibold tracking-wide text-slate-500 uppercase flex items-center gap-1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-slate-400"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            黑夜
+          </label>
+          <input type="time" id="darkTime" value="19:00" class="w-full px-3 py-2.5 bg-slate-900 border border-slate-900 rounded-lg text-sm text-white font-medium focus:outline-none focus:ring-2 focus:ring-slate-500/50 transition-all shadow-sm">
+        </div>
+      </div>
+    </div>
+
+    <!-- 日出日落面板 -->
+    <div id="panel-sun" class="w-full hidden">
+      <div class="space-y-3">
+        <div class="flex gap-3">
+          <div class="flex-1 space-y-1.5">
+            <label class="text-[11px] font-semibold tracking-wide text-slate-500 uppercase">纬度 (Lat)</label>
+            <input type="number" id="latitude" step="any" placeholder="39.90" class="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition-all shadow-sm">
+          </div>
+          <div class="flex-1 space-y-1.5">
+            <label class="text-[11px] font-semibold tracking-wide text-slate-500 uppercase">经度 (Lng)</label>
+            <input type="number" id="longitude" step="any" placeholder="116.40" class="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-sm text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition-all shadow-sm">
+          </div>
+        </div>
+        <div>
+          <button id="getLocation" class="w-full py-2.5 text-[12px] font-medium text-slate-700 bg-slate-200/50 rounded-lg hover:bg-slate-200 flex justify-center items-center gap-1.5 transition-colors border border-slate-200 cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            基于网络估算大致位置
+          </button>
+          <div class="text-[10px] text-slate-400 flex items-center justify-center gap-1.5 mt-2.5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-emerald-500/70"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2-1 4-2 7-2 2.5 0 4.5 1 6.5 2a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+            <span>不请求系统定位权限，仅需大致坐标</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部操作区 -->
+  <button id="save" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-3 rounded-xl shadow-[0_4px_14px_0_rgba(15,23,42,0.2)] transition-all active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M20 6 9 17l-5-5"/></svg>
+    <span>保存设置</span>
+  </button>
+
+  <script src="popup.js"></script>
+</body>
+</html>
