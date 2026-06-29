@@ -97,31 +97,6 @@
   loadSettings();
 
   // ==========================================
-  // 0.5 查询 background 实验 API 状态
-  // ==========================================
-  const statusDot = document.getElementById('statusDot');
-  const statusText = document.getElementById('statusText');
-
-  function checkExperimentStatus() {
-    extAPI.runtime.sendMessage({ action: "STATUS_CHECK" })
-      .then((resp) => {
-        if (resp && resp.experimentAPI) {
-          statusDot.style.background = 'var(--emerald-500)';
-          statusText.textContent = '✅ 已完全控制 about: 内置页面';
-        } else {
-          statusDot.style.background = '#f59e0b';
-          statusText.textContent = '⚠ 请用 Firefox Dev Edition 加载以获得完整功能';
-        }
-      })
-      .catch(() => {
-        statusDot.style.background = '#ef4444';
-        statusText.textContent = '❌ 后台未响应，请重新加载扩展';
-      });
-  }
-
-  checkExperimentStatus();
-
-  // ==========================================
   // 1. 总开关 — 立刻保存 + 立刻应用主题！
   // ==========================================
   masterToggle.addEventListener('change', (e) => {
@@ -165,55 +140,47 @@
   });
 
   // ==========================================
-  // 3. 定位按钮
+  // 3. 定位按钮 — 通过 background 脚本获取（生命周期稳定）
   // ==========================================
   btnLoc.addEventListener('click', (e) => {
     const btn = e.currentTarget;
     const originalHtml = btn.innerHTML;
 
-    btn.innerHTML = `${iconLoaderSm} 正在估算...`;
+    btn.innerHTML = `${iconLoaderSm} 正在定位...`;
     btn.classList.add('btn-sec-loading');
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          latInput.value = pos.coords.latitude.toFixed(2);
-          lngInput.value = pos.coords.longitude.toFixed(2);
-
-          btn.innerHTML = `${iconCheckSm} 定位成功`;
-          btn.classList.remove('btn-sec-loading');
-          btn.classList.add('btn-sec-success');
-          setTimeout(() => {
-            btn.innerHTML = originalHtml;
-            btn.classList.remove('btn-sec-success');
-          }, 2000);
-        },
-        () => {
+    // 发送给 background 脚本处理定位（避免 popup 生命周期问题）
+    extAPI.runtime.sendMessage({ action: "GET_LOCATION" })
+      .then((resp) => {
+        if (resp && resp.ok) {
+          latInput.value = resp.lat;
+          lngInput.value = resp.lng;
+          const label = resp.source === 'gps' ? 'GPS 定位' : 'IP 定位';
+          btn.innerHTML = `${iconCheckSm} ${label}成功`;
+        } else {
+          // 全部失败，使用默认值
           latInput.value = "39.90";
           lngInput.value = "116.40";
-          btn.innerHTML = `${iconCheckSm} 网络估算`;
-          btn.classList.remove('btn-sec-loading');
-          btn.classList.add('btn-sec-success');
-          setTimeout(() => {
-            btn.innerHTML = originalHtml;
-            btn.classList.remove('btn-sec-success');
-          }, 2000);
-        },
-        { timeout: 5000, enableHighAccuracy: false }
-      );
-    } else {
-      setTimeout(() => {
-        latInput.value = "39.90";
-        lngInput.value = "116.40";
-        btn.innerHTML = `${iconCheckSm} 估算成功`;
+          btn.innerHTML = `${iconCheckSm} 使用默认位置`;
+        }
         btn.classList.remove('btn-sec-loading');
         btn.classList.add('btn-sec-success');
         setTimeout(() => {
           btn.innerHTML = originalHtml;
           btn.classList.remove('btn-sec-success');
         }, 2000);
-      }, 800);
-    }
+      })
+      .catch(() => {
+        latInput.value = "39.90";
+        lngInput.value = "116.40";
+        btn.innerHTML = `${iconCheckSm} 后台无响应，使用默认`;
+        btn.classList.remove('btn-sec-loading');
+        btn.classList.add('btn-sec-success');
+        setTimeout(() => {
+          btn.innerHTML = originalHtml;
+          btn.classList.remove('btn-sec-success');
+        }, 2000);
+      });
   });
 
   // ==========================================

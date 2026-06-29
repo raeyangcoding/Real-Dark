@@ -26,6 +26,13 @@
       --emerald-700: #047857;
     }
 
+    html {
+      margin: 0;
+      padding: 0;
+      border: none;
+      background: var(--slate-50);
+      scrollbar-width: none;
+    }
     * { box-sizing: border-box; }
 
     body {
@@ -291,11 +298,6 @@
       <span>保存设置</span>
     </button>
 
-    <!-- 状态指示器 -->
-    <div id="statusBar" style="margin-top:12px; text-align:center; font-size:10px; color:var(--slate-400);">
-      <span id="statusDot" style="display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--slate-300); margin-right:4px;"></span>
-      <span id="statusText">检查中...</span>
-    </div>
   </div>
 
   <!-- 彻底分离出来的外部 JS -->
