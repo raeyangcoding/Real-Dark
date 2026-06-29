@@ -1,0 +1,70 @@
+[
+  {
+    "namespace": "aboutConfigPrefs",
+    "description": "Experimental API to read/write about:config preferences via Services.prefs",
+    "functions": [
+      {
+        "name": "getInt",
+        "type": "function",
+        "description": "Get an integer preference value",
+        "parameters": [
+          {
+            "name": "pref",
+            "type": "string",
+            "description": "The preference name, e.g. browser.theme.content-theme"
+          }
+        ],
+        "async": true
+      },
+      {
+        "name": "setInt",
+        "type": "function",
+        "description": "Set an integer preference value",
+        "parameters": [
+          {
+            "name": "pref",
+            "type": "string",
+            "description": "The preference name"
+          },
+          {
+            "name": "value",
+            "type": "integer",
+            "description": "The new integer value"
+          }
+        ],
+        "async": true
+      },
+      {
+        "name": "getBool",
+        "type": "function",
+        "description": "Get a boolean preference value",
+        "parameters": [
+          {
+            "name": "pref",
+            "type": "string",
+            "description": "The preference name"
+          }
+        ],
+        "async": true
+      },
+      {
+        "name": "setBool",
+        "type": "function",
+        "description": "Set a boolean preference value",
+        "parameters": [
+          {
+            "name": "pref",
+            "type": "string",
+            "description": "The preference name"
+          },
+          {
+            "name": "value",
+            "type": "boolean",
+            "description": "The new boolean value"
+          }
+        ],
+        "async": true
+      }
+    ]
+  }
+]
