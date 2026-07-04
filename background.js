@@ -1,4 +1,4 @@
-const extAPI = (typeof browser !== 'undefined') ? browser : chrome;
+const extAPI = browser;
 
 // ==========================================
 // 唯一功能：browserSettings — 网页内容 prefers-color-scheme
@@ -153,7 +153,7 @@ async function getLocationFromIP() {
 // ==========================================
 // 事件监听
 // ==========================================
-extAPI.runtime.onMessage.addListener((request, sender, sendResponse) => {
+extAPI.runtime.onMessage.addListener((request, _sender, sendResponse) => {
   console.log('[RealDark BG] 收到消息:', JSON.stringify(request));
 
   if (request.action === "UPDATE_THEME") {
@@ -214,6 +214,7 @@ function clearMyAlarms() {
   extAPI.alarms.clear(ALARM_LIGHT);
   extAPI.alarms.clear(ALARM_DARK);
   extAPI.alarms.clear(ALARM_RECALC);
+  extAPI.alarms.clear("checkStatus"); // 清理旧 MVP 泄漏的 alarm
 }
 
 function alarmAt(name, h, m) {

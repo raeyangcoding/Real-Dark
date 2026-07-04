@@ -23,7 +23,6 @@
       --emerald-200: #a7f3d0;
       --emerald-500: #10b981;
       --emerald-600: #059669;
-      --emerald-700: #047857;
     }
 
     html {
@@ -53,7 +52,7 @@
     .w-3-5 { width: 14px; height: 14px; }
     .w-4 { width: 16px; height: 16px; }
 
-    /* --- 头部 Logo (新增了 flex justify-between 适配总开关) --- */
+    /* --- 头部 Logo --- */
     .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
     .header-left { display: flex; align-items: center; gap: 14px; }
     .logo-box {
@@ -81,7 +80,7 @@
     .logo-box:hover .eclipse-moon { transform: translateX(0); }
     .logo-box:hover .eclipse-sun { box-shadow: 0 0 8px 1px rgba(255, 255, 255, 0.3); background-color: transparent; }
 
-    /* --- 🌟 新增：总开关样式 🌟 --- */
+    /* --- 总开关 --- */
     .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
     .switch input { opacity: 0; width: 0; height: 0; }
     .slider {
@@ -201,14 +200,14 @@
       </div>
     </div>
     
-    <!-- 🌟 新增的总开关 -->
+    <!-- 总开关 -->
     <label class="switch">
       <input type="checkbox" id="masterToggle" checked>
       <span class="slider"></span>
     </label>
   </header>
 
-  <!-- 🌟 包裹全部设置区域 -->
+  <!-- 设置区域 -->
   <div id="settingsArea">
     <!-- 模式选择 -->
     <div class="modes-container">

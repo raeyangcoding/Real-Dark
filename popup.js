@@ -111,7 +111,18 @@
 
     // 立刻保存并应用
     const config = collectConfig();
-    saveAndApply(config);
+    saveAndApply(config, (success) => {
+      if (!success) {
+        console.error('[RealDark Popup] 主开关保存失败！');
+        // 视觉回弹：恢复开关状态
+        masterToggle.checked = !on;
+        if (on) {
+          settingsArea.classList.add('settings-disabled');
+        } else {
+          settingsArea.classList.remove('settings-disabled');
+        }
+      }
+    });
   });
 
   // ==========================================
