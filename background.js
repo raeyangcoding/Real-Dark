@@ -65,6 +65,13 @@ function getSunsetSunrise(lat, lng) {
   const sunset = new Date(date);
   sunset.setUTCHours(Math.floor(normSet), (normSet % 1) * 60, 0);
 
+  // 东经度地区（如中国、日本）：日出 UTC 时间落在上一个 UTC 日
+  // 例如北京 sunriseUTC = -3.175 → normRise = 20.825，应设为 昨天 20:49 UTC
+  // normRise > normSet 说明日出和日落在不同 UTC 日
+  if (normRise > normSet) {
+    sunrise.setDate(sunrise.getDate() - 1);
+  }
+
   return { sunrise, sunset };
 }
 

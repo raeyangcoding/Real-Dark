@@ -2,19 +2,25 @@
   "manifest_version": 3,
   "name": "RealDark",
   "version": "1.0",
-  "description": "定时/日出日落自动切换深色模式 — 新标签页 + 网页内容",
+  "description": "定时/日落自动切换Firefox内置页面深色模式，新开标签页也不会闪",
   "permissions": ["storage", "geolocation", "alarms", "browserSettings"],
   "background": {
     "scripts": ["background.js"]
   },
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icons/icon.png"
+    "default_icon": {
+      "48": "icons/icon-48.png",
+      "96": "icons/icon-96.png"
+    }
   },
   "browser_specific_settings": {
     "gecko": {
       "id": "realdark@example.com",
-      "strict_min_version": "95.0"
+      "strict_min_version": "95.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
     }
   }
 }
